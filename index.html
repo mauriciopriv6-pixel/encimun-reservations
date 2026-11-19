@@ -24,11 +24,7 @@
       padding: 28px 7%;
     }
 
-    header h1 {
-      margin: 0;
-      letter-spacing: 4px;
-    }
-
+    header h1 { margin: 0; letter-spacing: 4px; }
     header p { color: #c5cedb; }
 
     main {
@@ -104,7 +100,6 @@
     }
 
     label { font-weight: bold; font-size: 14px; }
-
     .hidden { display: none; }
 
     .secondary {
@@ -180,8 +175,11 @@
 <footer>ENCIMUN · Sistema de delegaciones</footer>
 
 <script>
-  const SUPABASE_URL = https://tglmetohfrhwvpbukeva.supabase.co;
-  const SUPABASE_KEY = sb_publishable_ihiKe3oqzQ8luiABYHV1GA_rudHPorT";
+  // CONFIGURACIÓN DE SUPABASE
+  const SUPABASE_URL = "https://tglmetohfrhwvpbukeva.supabase.co";
+
+  // Sustituye el texto siguiente por tu clave Publishable real.
+  const SUPABASE_KEY = "sb_publishable_ihiKe3oqzQ8luiABYHV1GA_rudHPorT";
 
   const db = window.supabase.createClient(
     SUPABASE_URL,
@@ -192,8 +190,12 @@
   let selectedCountry = null;
 
   function showOnly(sectionId) {
-    ["committeeSection", "countrySection",
-     "formSection", "successSection"].forEach(id => {
+    [
+      "committeeSection",
+      "countrySection",
+      "formSection",
+      "successSection"
+    ].forEach(id => {
       document.getElementById(id).classList.add("hidden");
     });
 
@@ -202,39 +204,53 @@
 
   async function loadCommittees() {
     const container = document.getElementById("committees");
+    container.textContent = "Cargando comités...";
 
-    const { data, error } = await db
-      .from("committees")
-      .select("id, name, expected_delegates")
-      .order("id");
+    try {
+      const { data, error } = await db
+        .from("committees")
+        .select("id, name, expected_delegates")
+        .order("id");
 
-    if (error) {
-      container.textContent = "No se pudieron cargar los comités: " + error.message;
-      return;
+      if (error) throw error;
+
+      if (!data || data.length === 0) {
+        container.textContent = "No se encontraron comités.";
+        return;
+      }
+
+      container.innerHTML = "";
+
+      data.forEach(committee => {
+        const button = document.createElement("button");
+        button.className = "committee";
+
+        const name = document.createElement("strong");
+        name.textContent = committee.name;
+
+        const count = document.createElement("span");
+        count.textContent =
+          committee.expected_delegates + " delegaciones";
+
+        button.append(name, count);
+        button.onclick = () => openCommittee(committee);
+
+        container.appendChild(button);
+      });
+
+    } catch (error) {
+      console.error("Error al cargar comités:", error);
+      container.textContent =
+        "No se pudieron cargar los comités: " + error.message;
     }
-
-    container.innerHTML = "";
-
-    data.forEach(committee => {
-      const button = document.createElement("button");
-      button.className = "committee";
-
-      const name = document.createElement("strong");
-      name.textContent = committee.name;
-
-      const count = document.createElement("span");
-      count.textContent = committee.expected_delegates + " delegaciones";
-
-      button.append(name, count);
-      button.onclick = () => openCommittee(committee);
-
-      container.appendChild(button);
-    });
   }
 
   async function openCommittee(committee) {
     selectedCommittee = committee;
-    document.getElementById("committeeTitle").textContent = committee.name;
+
+    document.getElementById("committeeTitle").textContent =
+      committee.name;
+
     showOnly("countrySection");
     await loadCountries();
   }
@@ -243,44 +259,48 @@
     const container = document.getElementById("countries");
     container.textContent = "Cargando países...";
 
-    const { data, error } = await db.rpc("get_countries", {
-      p_committee_id: selectedCommittee.id
-    });
+    try {
+      const { data, error } = await db.rpc("get_countries", {
+        p_committee_id: selectedCommittee.id
+      });
 
-    if (error) {
-      container.textContent = "Error al cargar países: " + error.message;
-      return;
+      if (error) throw error;
+
+      container.innerHTML = "";
+
+      data.forEach(country => {
+        const row = document.createElement("div");
+        row.className = "country";
+
+        const name = document.createElement("strong");
+        name.textContent = country.name;
+
+        const status = document.createElement("span");
+        const button = document.createElement("button");
+
+        if (country.is_reserved) {
+          status.className = "reserved";
+          status.textContent = "Reservado";
+
+          button.textContent = "No disponible";
+          button.disabled = true;
+        } else {
+          status.className = "available";
+          status.textContent = "Disponible";
+
+          button.textContent = "Seleccionar";
+          button.onclick = () => selectCountry(country);
+        }
+
+        row.append(name, status, button);
+        container.appendChild(row);
+      });
+
+    } catch (error) {
+      console.error("Error al cargar países:", error);
+      container.textContent =
+        "Error al cargar países: " + error.message;
     }
-
-    container.innerHTML = "";
-
-    data.forEach(country => {
-      const row = document.createElement("div");
-      row.className = "country";
-
-      const name = document.createElement("strong");
-      name.textContent = country.name;
-
-      const button = document.createElement("button");
-
-      if (country.is_reserved) {
-        const status = document.createElement("span");
-        status.className = "reserved";
-        status.textContent = "Reservado";
-        button.textContent = "No disponible";
-        button.disabled = true;
-        row.append(name, status, button);
-      } else {
-        const status = document.createElement("span");
-        status.className = "available";
-        status.textContent = "Disponible";
-        button.textContent = "Seleccionar";
-        button.onclick = () => selectCountry(country);
-        row.append(name, status, button);
-      }
-
-      container.appendChild(row);
-    });
   }
 
   function selectCountry(country) {
@@ -305,60 +325,78 @@
     await loadCountries();
   }
 
-  document.getElementById("reservationForm").addEventListener("submit", async event => {
-    event.preventDefault();
+  document.getElementById("reservationForm")
+    .addEventListener("submit", async event => {
 
-    const button = document.getElementById("submitButton");
-    const message = document.getElementById("message");
+      event.preventDefault();
 
-    button.disabled = true;
-    button.textContent = "Confirmando...";
-    message.textContent = "";
+      if (!selectedCountry || !selectedCommittee) return;
 
-    const fullName = document.getElementById("fullName").value.trim();
-    const school = document.getElementById("school").value.trim();
-    const email = document.getElementById("email").value.trim();
+      const button = document.getElementById("submitButton");
+      const message = document.getElementById("message");
 
-    const { data, error } = await db.rpc("reserve_country", {
-      p_country_id: selectedCountry.id,
-      p_full_name: fullName,
-      p_school: school,
-      p_email: email
+      button.disabled = true;
+      button.textContent = "Confirmando...";
+      message.textContent = "";
+
+      const fullName =
+        document.getElementById("fullName").value.trim();
+
+      const school =
+        document.getElementById("school").value.trim();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      try {
+        const { data, error } = await db.rpc("reserve_country", {
+          p_country_id: selectedCountry.id,
+          p_full_name: fullName,
+          p_school: school,
+          p_email: email
+        });
+
+        if (error) throw error;
+
+        if (data === "unavailable") {
+          message.textContent =
+            "Este país acaba de ser reservado. Selecciona otro.";
+
+          await loadCountries();
+          showOnly("countrySection");
+          return;
+        }
+
+        if (data !== "reserved") {
+          message.textContent =
+            "Respuesta inesperada del servidor.";
+          return;
+        }
+
+        document.getElementById("confirmation").textContent =
+          "Delegado: " + fullName +
+          " | Colegio: " + school +
+          " | Correo: " + email +
+          " | Comité: " + selectedCommittee.name +
+          " | País: " + selectedCountry.name;
+
+        showOnly("successSection");
+
+      } catch (error) {
+        console.error("Error en la reservación:", error);
+        message.textContent =
+          "No se pudo completar la reservación: " + error.message;
+
+      } finally {
+        button.disabled = false;
+        button.textContent = "Confirmar reservación";
+      }
     });
-
-    button.disabled = false;
-    button.textContent = "Confirmar reservación";
-
-    if (error) {
-      message.textContent = "No se pudo completar la reservación: " + error.message;
-      return;
-    }
-
-    if (data === "unavailable") {
-      message.textContent = "Este país acaba de ser reservado. Selecciona otro.";
-      await loadCountries();
-      showOnly("countrySection");
-      return;
-    }
-
-    if (data !== "reserved") {
-      message.textContent = "Respuesta inesperada del servidor.";
-      return;
-    }
-
-    document.getElementById("confirmation").textContent =
-      "Delegado: " + fullName +
-      " | Colegio: " + school +
-      " | Correo: " + email +
-      " | Comité: " + selectedCommittee.name +
-      " | País: " + selectedCountry.name;
-
-    showOnly("successSection");
-  });
 
   loadCommittees();
 </script>
 
 </body>
 </html>
+
 
