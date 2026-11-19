@@ -371,8 +371,15 @@
             "Respuesta inesperada del servidor.";
           return;
         }
-
-        document.getElementById("confirmation").textContent =
+         sessionStorage.setItem("encimunConfirmation", JSON.stringify({
+         fullName: fullName,
+         school: school,
+         email: email,
+         committee: selectedCommittee.name,
+         country: selectedCountry.name
+         }));
+        
+         document.getElementById("confirmation").textContent =
           "Delegado: " + fullName +
           " | Colegio: " + school +
           " | Correo: " + email +
@@ -392,7 +399,22 @@
       }
     });
 
+  const savedConfirmation = sessionStorage.getItem("encimunConfirmation");
+
+if (savedConfirmation) {
+  const saved = JSON.parse(savedConfirmation);
+
+  document.getElementById("confirmation").textContent =
+    "Delegado: " + saved.fullName +
+    " | Colegio: " + saved.school +
+    " | Correo: " + saved.email +
+    " | Comité: " + saved.committee +
+    " | País: " + saved.country;
+
+  showOnly("successSection");
+} else {
   loadCommittees();
+}
 </script>
 
 </body>
