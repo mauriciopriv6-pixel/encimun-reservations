@@ -34,10 +34,20 @@
     }
     .brand { display: flex; align-items: center; gap: 13px; }
     .brand-mark {
-      width: 46px; height: 46px; border: 1px solid var(--gold);
-      color: var(--gold); display: grid; place-items: center;
-      font-family: Georgia, serif; font-size: 27px;
-    }
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
     .brand h1 { margin: 0; letter-spacing: 4px; font-size: 25px; }
     .brand p { margin: 5px 0 0; color: #c5cedb; font-size: 10px; letter-spacing: 1.7px; }
     .header-note { color: #d7c49f; font-size: 11px; letter-spacing: 1.3px; text-align: right; }
@@ -58,11 +68,20 @@
       color: white; padding: 66px 7%; border-radius: 3px;
       position: relative; overflow: hidden; margin-bottom: 28px;
     }
-    .hero:after {
-      content: "E"; position: absolute; right: 7%; top: -52px;
-      font-family: Georgia, serif; font-size: 310px; line-height: 1;
-      color: #ffffff09; pointer-events: none;
-    }
+    .hero::after {
+  content: "";
+  position: absolute;
+  right: -150px;
+  top: -130px;
+  width: 580px;
+  height: 580px;
+  background-image: url("logo-encimun.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.055;
+  pointer-events: none;
+}
     .eyebrow { color: #d7bd88; font-size: 11px; font-weight: bold; letter-spacing: 2px; }
     .hero h2 {
       position: relative; z-index: 1; max-width: 650px;
@@ -130,6 +149,25 @@
       main { margin-top: 22px; padding: 0 14px; }
       .country { flex-wrap: wrap; }
     }
+
+body {
+  position: relative;
+  isolation: isolate;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("logo-encimun.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 380px;
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: -1;
+}
+
   </style>
 </head>
 
@@ -138,7 +176,9 @@
 <header class="site-header">
   <div class="brand-row">
     <div class="brand">
-      <div class="brand-mark">E</div>
+      <div class="brand-mark">
+  <img src="logo-encimun.png" alt="Logotipo oficial de ENCIMUN">
+</div>
       <div>
         <h1>ENCIMUN</h1>
         <p>MODELO DE NACIONES UNIDAS</p>
