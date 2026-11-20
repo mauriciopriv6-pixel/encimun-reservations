@@ -4,131 +4,321 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ENCIMUN | Delegaciones</title>
+  <title>ENCIMUN | Portal oficial</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     * { box-sizing: border-box; }
-
+    :root {
+      --navy: #14243b;
+      --navy-2: #203b5c;
+      --gold: #b99a62;
+      --paper: #f5f3ee;
+      --ink: #172337;
+      --muted: #657286;
+      --line: #dfe4ea;
+    }
+    html { scroll-behavior: smooth; }
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f5f7;
-      color: #172337;
+      margin: 0; font-family: Arial, sans-serif;
+      background: var(--paper); color: var(--ink);
     }
-
-    header {
-      background: #14243b;
-      color: white;
-      padding: 28px 7%;
+    .site-header {
+      background: var(--navy); color: white;
+      border-bottom: 3px solid var(--gold);
     }
-
-    header h1 { margin: 0; letter-spacing: 4px; }
-    header p { color: #c5cedb; }
-
-    main {
-      max-width: 1000px;
-      margin: 45px auto;
-      padding: 0 20px;
+    .brand-row {
+      max-width: 1180px; margin: auto; padding: 22px 24px 17px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
     }
-
-    .panel {
-      background: white;
-      border-radius: 12px;
-      padding: 28px;
-      box-shadow: 0 4px 18px #0000000b;
-      margin-bottom: 22px;
+    .brand { display: flex; align-items: center; gap: 13px; }
+    .brand-mark {
+      width: 46px; height: 46px; border: 1px solid var(--gold);
+      color: var(--gold); display: grid; place-items: center;
+      font-family: Georgia, serif; font-size: 27px;
     }
-
+    .brand h1 { margin: 0; letter-spacing: 4px; font-size: 25px; }
+    .brand p { margin: 5px 0 0; color: #c5cedb; font-size: 10px; letter-spacing: 1.7px; }
+    .header-note { color: #d7c49f; font-size: 11px; letter-spacing: 1.3px; text-align: right; }
+    .main-nav { border-top: 1px solid #ffffff20; }
+    .nav-inner {
+      max-width: 1180px; margin: auto; padding: 0 18px;
+      display: flex; align-items: stretch; justify-content: space-between; gap: 2px;
+    }
+    .main-nav a {
+      color: #eef2f6; text-decoration: none; font-size: 11px;
+      font-weight: 700; letter-spacing: .65px; padding: 17px 10px;
+      border-bottom: 3px solid transparent; white-space: nowrap;
+    }
+    .main-nav a:hover, .main-nav a:focus { color: #e2c994; border-bottom-color: var(--gold); }
+    main { max-width: 1180px; margin: 38px auto 60px; padding: 0 22px; min-height: 55vh; }
+    .hero {
+      background: linear-gradient(115deg, #14243b 0%, #203b5c 70%, #29496b 100%);
+      color: white; padding: 66px 7%; border-radius: 3px;
+      position: relative; overflow: hidden; margin-bottom: 28px;
+    }
+    .hero:after {
+      content: "E"; position: absolute; right: 7%; top: -52px;
+      font-family: Georgia, serif; font-size: 310px; line-height: 1;
+      color: #ffffff09; pointer-events: none;
+    }
+    .eyebrow { color: #d7bd88; font-size: 11px; font-weight: bold; letter-spacing: 2px; }
+    .hero h2 {
+      position: relative; z-index: 1; max-width: 650px;
+      font: normal 42px/1.12 Georgia, serif; margin: 18px 0;
+    }
+    .hero p { position: relative; z-index: 1; max-width: 610px; color: #d6deea; line-height: 1.7; }
+    .hero .primary { position: relative; z-index: 1; margin-top: 18px; }
+    .section-heading { font: normal 29px Georgia, serif; color: var(--navy); margin: 0 0 12px; }
+    .intro { color: var(--muted); line-height: 1.7; max-width: 760px; }
+    .quick-grid, .grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;
+    }
+    .quick-card, .panel {
+      background: white; border: 1px solid var(--line); border-radius: 4px;
+      padding: 24px; box-shadow: 0 5px 18px #14243b0a;
+    }
+    .quick-card { min-height: 155px; }
+    .quick-card .number { color: var(--gold); font: 26px Georgia, serif; }
+    .quick-card h3 { color: var(--navy); margin: 12px 0 7px; font-size: 16px; }
+    .quick-card p { color: var(--muted); font-size: 13px; line-height: 1.6; margin: 0; }
+    .panel { margin-bottom: 22px; }
     h2 { margin-top: 0; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-    }
-
     button {
-      cursor: pointer;
-      border: 0;
-      border-radius: 8px;
-      padding: 14px 18px;
-      font-size: 15px;
-      background: #172d4b;
-      color: white;
+      cursor: pointer; border: 0; border-radius: 3px; padding: 13px 18px;
+      font-size: 14px; font-weight: 700; background: var(--navy);
+      color: white; transition: background .15s ease;
     }
-
-    button:hover { background: #294b75; }
+    button:hover { background: var(--navy-2); }
     button:disabled { cursor: not-allowed; opacity: .5; }
-
+    .primary { background: var(--gold); color: #172337; }
+    .primary:hover { background: #c8aa73; }
     .committee {
-      background: white;
-      color: #172337;
-      border: 1px solid #d9dee6;
-      text-align: left;
-      min-height: 110px;
+      background: white; color: var(--ink); border: 1px solid var(--line);
+      text-align: left; min-height: 110px;
     }
-
-    .committee strong {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 17px;
-    }
-
+    .committee strong { display: block; margin-bottom: 10px; font-size: 17px; color: var(--navy); }
     .country {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      border: 1px solid #e1e5eb;
-      padding: 14px;
-      border-radius: 8px;
-      margin: 9px 0;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; border: 1px solid var(--line); padding: 14px;
+      border-radius: 4px; margin: 9px 0; background: #fff;
     }
-
     .available { color: #24734c; font-size: 13px; }
     .reserved { color: #a33c3c; font-size: 13px; }
-
     input {
-      width: 100%;
-      padding: 13px;
-      margin: 8px 0 16px;
-      border: 1px solid #cbd2dc;
-      border-radius: 7px;
-      font-size: 15px;
+      width: 100%; padding: 13px; margin: 8px 0 16px;
+      border: 1px solid #cbd2dc; border-radius: 3px; font-size: 15px;
     }
-
     label { font-weight: bold; font-size: 14px; }
-    .hidden { display: none; }
-
-    .secondary {
-      background: #e8edf3;
-      color: #172337;
-      margin-bottom: 18px;
-    }
-
+    .hidden { display: none !important; }
+    .secondary { background: #e8edf3; color: var(--ink); margin-bottom: 18px; }
     #message { margin-top: 16px; }
-
     footer {
-      text-align: center;
-      color: #687487;
-      padding: 30px;
-      font-size: 13px;
+      background: var(--navy); color: #c5cedb; text-align: center;
+      padding: 28px 20px; font-size: 12px; letter-spacing: .5px;
+    }
+    @media (max-width: 850px) {
+      .nav-inner { justify-content: flex-start; overflow-x: auto; }
+      .main-nav a { padding: 15px 11px; }
+      .header-note { display: none; }
+    }
+    @media (max-width: 600px) {
+      .brand-row { padding: 17px 18px; }
+      .hero { padding: 43px 25px; }
+      .hero h2 { font-size: 34px; }
+      main { margin-top: 22px; padding: 0 14px; }
+      .country { flex-wrap: wrap; }
     }
   </style>
 </head>
 
-<body>
 
-<header>
-  <h1>ENCIMUN</h1>
-  <p>Sistema de selección de delegaciones</p>
+<body>
+<header class="site-header">
+  <div class="brand-row">
+    <div class="brand">
+      <div class="brand-mark">E</div>
+      <div>
+        <h1>ENCIMUN</h1>
+        <p>MODELO DE NACIONES UNIDAS</p>
+      </div>
+    </div>
+    <div class="header-note">COLEGIO ENCINO<br>AGUASCALIENTES · MÉXICO</div>
+  </div>
+  <nav class="main-nav" aria-label="Navegación principal">
+    <div class="nav-inner">
+      <a href="#" onclick="showOnly('homeSection'); return false;">INICIO</a>
+      <a href="#" onclick="showOnly('posturesSection'); return false;">POSTURAS</a>
+      <a href="#" onclick="showOnly('accountSection'); return false;">CREAR CUENTA</a>
+      <a href="#" onclick="showOnly('documentsSection'); return false;">DOCUMENTOS IMPORTANTES</a>
+      <a href="#" onclick="showOnly('participantSection'); return false;">SOY PARTICIPANTE</a>
+      <a href="#" onclick="showOnly('staffSection'); return false;">SOY STAFF</a>
+      <a href="#" onclick="showOnly('committeesInfoSection'); return false;">COMITÉS</a>
+    </div>
+  </nav>
 </header>
 
 <main>
+  <section id="homeSection">
+    <div class="hero">
+      <div class="eyebrow">COLEGIO ENCINO · MODELO DE NACIONES UNIDAS</div>
+      <h2>El diálogo construye el futuro.</h2>
+      <p>Un espacio de diplomacia, debate y cooperación internacional. Representa a una nación, defiende sus intereses y participa en la construcción de soluciones.</p>
+      <button class="primary" onclick="window.location.href='seleccion.html'">EXPLORAR COMITÉS</button>
+    </div>
+    <h2 class="section-heading">Bienvenido a ENCIMUN</h2>
+    <p class="intro">ENCIMUN reúne a estudiantes en un ejercicio académico de diálogo, negociación y representación internacional. Consulta la información del modelo y accede a las herramientas correspondientes a tu participación.</p>
+    <div class="quick-grid">
+      <article class="quick-card"><div class="number">01</div><h3>Posturas</h3><p>Consulta las posiciones y orientaciones académicas de los comités.</p></article>
+      <article class="quick-card"><div class="number">02</div><h3>Documentos importantes</h3><p>Encuentra materiales y documentos oficiales del modelo.</p></article>
+      <article class="quick-card"><div class="number">03</div><h3>Participantes</h3><p>Accede a tu espacio de inscripción y participación.</p></article>
+      <article class="quick-card"><div class="number">04</div><h3>Comités</h3><p>Conoce los órganos disponibles y sus delegaciones.</p></article>
+    </div>
+  </section>
 
-  <section id="committeeSection" class="panel">
+  <section id="posturesSection" class="panel hidden">
+    <button class="secondary" onclick="showOnly('homeSection')">← Volver al inicio</button>
+    <h2 class="section-heading">Posturas</h2>
+    <p class="intro">En este apartado se publicarán las posturas oficiales y las orientaciones académicas de los comités.</p>
+    <p>Los documentos estarán disponibles cuando sean publicados por la organización.</p>
+  </section>
+
+  <section id="accountSection" class="panel hidden">
+    <button class="secondary" onclick="showOnly('homeSection')">← Volver al inicio</button>
+    <h2 class="section-heading">Crear cuenta</h2>
+    <p class="intro">El registro individual de delegados se habilitará en esta sección.</p>
+    <p>La creación de cuentas y la inscripción todavía están en etapa de implementación.</p>
+  </section>
+<section id="documentsSection" class="panel hidden">
+
+  <button class="secondary" onclick="showOnly('homeSection')">
+    ← Volver al inicio
+  </button>
+
+  <h2 class="section-heading">Documentos importantes</h2>
+
+  <p class="intro">
+    En este apartado estarán disponibles los documentos oficiales de ENCIMUN.
+  </p>
+
+  <p>
+    Aún no se han subido documentos. Próximamente estarán disponibles para consulta y descarga.
+  </p>
+
+</section>
+
+  <section id="committeesInfoSection" class="panel hidden">
+  <button class="secondary" onclick="showOnly('homeSection')">
+    ← Volver al inicio
+  </button>
+
+  <h2 class="section-heading">Comités de ENCIMUN</h2>
+
+  <p class="intro">
+    Conoce los órganos de debate que integran nuestro modelo y consulta
+    la información y los documentos correspondientes a cada uno.
+  </p>
+
+  <div class="grid">
+
+    <article class="quick-card">
+      <div class="number">01</div>
+      <h3>Asamblea General</h3>
+      <p>AG · Asamblea General de las Naciones Unidas.</p>
+      <br>
+      <a href="comite-ag.html">CONSULTAR COMITÉ →</a>
+    </article>
+
+    <article class="quick-card">
+      <div class="number">02</div>
+      <h3>Consejo de Seguridad</h3>
+      <p>CS · Consejo de Seguridad de las Naciones Unidas.</p>
+      <br>
+      <a href="comite-cs.html">CONSULTAR COMITÉ →</a>
+    </article>
+
+    <article class="quick-card">
+      <div class="number">03</div>
+      <h3>Derechos Humanos</h3>
+      <p>DH · Comité de Derechos Humanos.</p>
+      <br>
+      <a href="comite-dh.html">CONSULTAR COMITÉ →</a>
+    </article>
+
+  </div>
+</section>
+
+  <section id="participantSection" class="panel hidden">
+  <button class="secondary" onclick="showOnly('homeSection')">← Volver al inicio</button>
+
+  <h2 class="section-heading">Acceso de participantes</h2>
+
+  <p class="intro">
+    Ingresa con tu cuenta individual de ENCIMUN para consultar tu información y acceder a tus funciones como participante.
+  </p>
+
+  <div class="panel">
+    <form id="participantLoginForm">
+      <label for="participantEmail">Correo electrónico</label>
+      <input
+        id="participantEmail"
+        type="email"
+        required
+        placeholder="Tu correo electrónico"
+      >
+
+      <label for="participantPassword">Contraseña</label>
+      <input
+        id="participantPassword"
+        type="password"
+        required
+        placeholder="Tu contraseña"
+      >
+
+      <button type="submit">INICIAR SESIÓN</button>
+
+      <p id="participantLoginMessage"></p>
+    </form>
+  </div>
+</section>
+
+  <section id="staffSection" class="panel hidden">
+  <button class="secondary" onclick="showOnly('homeSection')">← Volver al inicio</button>
+
+  <h2 class="section-heading">Acceso de STAFF</h2>
+
+  <p class="intro">
+    Área exclusiva para integrantes autorizados del equipo organizador de ENCIMUN.
+  </p>
+
+  <div class="panel">
+    <form id="staffLoginForm">
+      <label for="staffEmail">Correo electrónico</label>
+      <input
+        id="staffEmail"
+        type="email"
+        required
+        placeholder="Correo institucional"
+      >
+
+      <label for="staffPassword">Contraseña</label>
+      <input
+        id="staffPassword"
+        type="password"
+        required
+        placeholder="Tu contraseña"
+      >
+
+      <button type="submit">INICIAR SESIÓN</button>
+
+      <p id="staffLoginMessage"></p>
+    </form>
+  </div>
+</section>
+
+  <section id="committeeSection" class="panel hidden">
+    <button class="secondary" onclick="showOnly('homeSection')">← Volver al inicio</button>
     <h2>Selecciona tu comité</h2>
     <p>Elige el comité en el que deseas participar.</p>
     <div id="committees" class="grid">Cargando comités...</div>
@@ -145,33 +335,26 @@
     <button class="secondary" onclick="showCountries()">← Volver a países</button>
     <h2>Datos del delegado</h2>
     <p id="selection"></p>
-
     <form id="reservationForm">
       <label for="fullName">Nombre completo</label>
       <input id="fullName" required maxlength="120">
-
       <label for="school">Colegio</label>
       <input id="school" required maxlength="150">
-
       <label for="email">Correo electrónico</label>
       <input id="email" type="email" required maxlength="254">
-
-      <button type="submit" id="submitButton">
-        Confirmar reservación
-      </button>
+      <button type="submit" id="submitButton">Confirmar reservación</button>
     </form>
-
     <p id="message"></p>
   </section>
 
   <section id="successSection" class="panel hidden">
     <h2>Reservación confirmada</h2>
     <p id="confirmation"></p>
+    <button onclick="showOnly('homeSection')">Volver al inicio</button>
   </section>
-
 </main>
 
-<footer>ENCIMUN · Sistema de delegaciones</footer>
+<footer>ENCIMUN · COLEGIO ENCINO · MODELO DE NACIONES UNIDAS</footer>
 
 <script>
   // CONFIGURACIÓN DE SUPABASE
@@ -189,17 +372,37 @@
   let selectedCountry = null;
 
   function showOnly(sectionId) {
-    [
-      "committeeSection",
-      "countrySection",
-      "formSection",
-      "successSection"
-    ].forEach(id => {
-      document.getElementById(id).classList.add("hidden");
-    });
+  const sectionIds = [
+    "homeSection",
+    "posturesSection",
+    "accountSection",
+    "documentsSection",
+    "committeesInfoSection",
+    "participantSection",
+    "staffSection",
+    "committeeSection",
+    "countrySection",
+    "formSection",
+    "successSection"
+  ];
 
-    document.getElementById(sectionId).classList.remove("hidden");
+  sectionIds.forEach(id => {
+    const section = document.getElementById(id);
+
+    if (section) {
+      section.classList.add("hidden");
+    }
+  });
+
+  const targetSection = document.getElementById(sectionId);
+
+  if (!targetSection) {
+    console.error("No existe esta sección:", sectionId);
+    return;
   }
+
+  targetSection.classList.remove("hidden");
+}
 
   async function loadCommittees() {
     const container = document.getElementById("committees");
