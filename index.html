@@ -11,15 +11,20 @@
   <style>
     * { box-sizing: border-box; }
     :root {
-      --navy: #14243b;
-      --navy-2: #203b5c;
-      --gold: #b99a62;
-      --paper: #f5f3ee;
-      --ink: #172337;
-      --muted: #657286;
-      --line: #dfe4ea;
+  --navy: #14222F;
+  --navy-2: #203344;
+  --gold: #B99A62;
+
+  --paper: #1B2A38;
+  --ink: #E3E8EC;
+  --muted: #AAB6C1;
+  --line: #344655;
+
+  --surface: #223442;
+  --surface-2: #293C4B;
+  --text-light: #DCE3E9;
     }
-    html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; }
     body {
       margin: 0; font-family: Arial, sans-serif;
       background: var(--paper); color: var(--ink);
@@ -64,10 +69,14 @@
     .main-nav a:hover, .main-nav a:focus { color: #e2c994; border-bottom-color: var(--gold); }
     main { max-width: 1180px; margin: 38px auto 60px; padding: 0 22px; min-height: 55vh; }
     .hero {
-      background: linear-gradient(115deg, #14243b 0%, #203b5c 70%, #29496b 100%);
-      color: white; padding: 66px 7%; border-radius: 3px;
-      position: relative; overflow: hidden; margin-bottom: 28px;
-    }
+  background: #14222F;
+  padding: 66px 7%;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 28px;
+  color: #E3E8EC;
+}
     .hero::after {
   content: "";
   position: absolute;
@@ -89,15 +98,31 @@
     }
     .hero p { position: relative; z-index: 1; max-width: 610px; color: #d6deea; line-height: 1.7; }
     .hero .primary { position: relative; z-index: 1; margin-top: 18px; }
-    .section-heading { font: normal 29px Georgia, serif; color: var(--navy); margin: 0 0 12px; }
+    .section-heading {
+  font: normal 29px Georgia, serif;
+  color: #E3E8EC;
+  margin: 0 0 12px;
+}
     .intro { color: var(--muted); line-height: 1.7; max-width: 760px; }
     .quick-grid, .grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;
     }
     .quick-card, .panel {
-      background: white; border: 1px solid var(--line); border-radius: 4px;
-      padding: 24px; box-shadow: 0 5px 18px #14243b0a;
-    }
+  background: #14222F;
+  color: #E3E8EC;
+  border: 1px solid #344655;
+  border-radius: 4px;
+  padding: 24px;
+  box-shadow: 0 5px 18px #00000020;
+}
+
+.quick-card h3,
+.panel h2,
+.panel h3,
+.panel p,
+.panel label {
+  color: #E3E8EC;
+}
     .quick-card { min-height: 155px; }
     .quick-card .number { color: var(--gold); font: 26px Georgia, serif; }
     .quick-card h3 { color: var(--navy); margin: 12px 0 7px; font-size: 16px; }
@@ -168,6 +193,60 @@ body::before {
   z-index: -1;
 }
 
+/* MENSAJE DE BIENVENIDA */
+.welcome-message {
+  max-width: 850px;
+  margin-top: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-message p {
+  font-size: 15px;
+  line-height: 1.9;
+  color: #e5e8ed;
+  margin-bottom: 17px;
+  max-width: 790px;
+}
+
+/* FIRMA INSTITUCIONAL */
+.signature {
+  position: relative;
+  z-index: 1;
+  margin-top: 35px;
+  padding-top: 18px;
+  max-width: 350px;
+}
+
+.signature-line {
+  width: 75px;
+  height: 2px;
+  background: #b99a62;
+  margin-bottom: 18px;
+}
+
+.signature-closing {
+  color: #d9dce2;
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-style: italic;
+  margin-bottom: 13px;
+}
+
+.signature h3 {
+  color: #d0b47c;
+  font-size: 15px;
+  letter-spacing: 3px;
+  margin: 0 0 8px;
+}
+
+.signature-footer {
+  color: #aeb8c6;
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
   </style>
 </head>
 
@@ -200,22 +279,53 @@ body::before {
 </header>
 
 <main>
-  <section id="homeSection">
-    <div class="hero">
-      <div class="eyebrow">COLEGIO ENCINO · MODELO DE NACIONES UNIDAS</div>
-      <h2>El diálogo construye el futuro.</h2>
-      <p>Un espacio de diplomacia, debate y cooperación internacional. Representa a una nación, defiende sus intereses y participa en la construcción de soluciones.</p>
-      <button class="primary" onclick="window.location.href='seleccion.html'">EXPLORAR COMITÉS</button>
-    </div>
-    <h2 class="section-heading">Bienvenido a ENCIMUN</h2>
-    <p class="intro">ENCIMUN reúne a estudiantes en un ejercicio académico de diálogo, negociación y representación internacional. Consulta la información del modelo y accede a las herramientas correspondientes a tu participación.</p>
-    <div class="quick-grid">
-      <article class="quick-card"><div class="number">01</div><h3>Posturas</h3><p>Consulta las posiciones y orientaciones académicas de los comités.</p></article>
-      <article class="quick-card"><div class="number">02</div><h3>Documentos importantes</h3><p>Encuentra materiales y documentos oficiales del modelo.</p></article>
-      <article class="quick-card"><div class="number">03</div><h3>Participantes</h3><p>Accede a tu espacio de inscripción y participación.</p></article>
-      <article class="quick-card"><div class="number">04</div><h3>Comités</h3><p>Conoce los órganos disponibles y sus delegaciones.</p></article>
-    </div>
-  </section>
+<section id="homeSection">
+<div class="hero">
+<div class="eyebrow">COLEGIO ENCINO . MODELO DE NACIONES UNIDAS</div>
+
+  <h2>El diálogo construye el futuro.</h2>
+
+  <div class="welcome-message">
+    <p>
+      Es un honor darles la bienvenida a ENCIMUN. Este encuentro representa
+      una oportunidad para trascender el ámbito académico, conocer distintas
+      perspectivas y asumir el compromiso que implica formar parte de un
+      espacio de diálogo y representación internacional.
+    </p>
+
+    <p>
+      Ser delegado exige preparación, pensamiento crítico, capacidad de
+      negociación y, sobre todo, la disposición de escuchar y comprender
+      realidades distintas. Cada postura defendida, cada debate y cada
+      acuerdo representan una oportunidad para demostrar que las diferencias
+      no son un obstáculo, sino el punto de partida para construir soluciones.
+    </p>
+
+    <p>
+      Desde Secretaría General, los invitamos a asumir este desafío con
+      responsabilidad, determinación y respeto. Aprovechen cada momento,
+      cuestionen sus propias ideas y no pierdan de vista el propósito que
+      nos reúne: hacer del diálogo una herramienta para construir un mejor futuro.
+    </p>
+
+    <p>
+      Les deseamos una experiencia llena de aprendizaje, grandes debates
+      y logros que trasciendan estas jornadas.
+    </p>
+  </div>
+
+  <div class="signature">
+    <div class="signature-line"></div>
+    <p class="signature-closing">Con nuestros mejores deseos,</p>
+    <h3>SECRETARÍA GENERAL</h3>
+    <p class="signature-footer">ENCIMUN · COLEGIO ENCINO</p>
+  </div>
+
+  <button class="primary" onclick="window.location.href='seleccion.html'">
+    EXPLORAR COMITÉS
+  </button>
+   </div>
+ </section>
 
   <section id="posturesSection" class="panel hidden">
     <button class="secondary" onclick="showOnly('homeSection')">← Volver al inicio</button>
@@ -442,17 +552,22 @@ body::before {
   }
 
   targetSection.classList.remove("hidden");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
-  async function loadCommittees() {
-    const container = document.getElementById("committees");
-    container.textContent = "Cargando comités...";
+async function loadCommittees() {
+  const container = document.getElementById("committees");
+  container.textContent = "Cargando comités...";
 
-    try {
-      const { data, error } = await db
-        .from("committees")
-        .select("id, name, expected_delegates")
-        .order("id");
+  try {
+    const { data, error } = await db
+      .from("committees")
+      .select("id, name, expected_delegates")
+      .order("id");
 
       if (error) throw error;
 
