@@ -346,8 +346,15 @@
 
       const email =
         document.getElementById("email").value.trim();
-
-      try {
+        
+        console.log("DATOS QUE SE ENVIARÁN:", {
+       fullName,
+       school,
+       email,
+       country: selectedCountry.name
+       });
+      
+       try {
         const { data, error } = await db.rpc("reserve_country", {
           p_country_id: selectedCountry.id,
           p_full_name: fullName,
