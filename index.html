@@ -156,7 +156,17 @@
     }
     label { font-weight: bold; font-size: 14px; }
     .hidden { display: none !important; }
-    .secondary { background: #e8edf3; color: var(--ink); margin-bottom: 18px; }
+    .secondary {
+  background: #e8edf3;
+  color: #14222F;
+  margin-bottom: 18px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.secondary:hover {
+  background: #14222F;
+  color: #FFFFFF;
+}
     #message { margin-top: 16px; }
     footer {
       background: var(--navy); color: #c5cedb; text-align: center;
@@ -434,7 +444,7 @@ body::before {
 </section>
 
   <section id="staffSection" class="panel hidden">
-  <button class="secondary" onclick="showOnly('homeSection')">← Volver al inicio</button>
+  <button class="secondary" onclick="showOnly('homeSection')">Volver al inicio</button>
 
   <h2 class="section-heading">Acceso de STAFF</h2>
 
@@ -464,6 +474,25 @@ body::before {
 
       <p id="staffLoginMessage"></p>
     </form>
+    
+
+  
+  <!-- PANEL PRIVADO -->
+  <div id="staffDashboardSection" class="hidden">
+    <h2>Bienvenido, Secretario.</h2>
+    <p>Panel de administración ENCIMUN</p>
+
+    <button class="secondary" onclick="staffLogout()">
+      CERRAR SESIÓN
+    </button>
+
+    <h3>Reservaciones registradas</h3>
+    <div id="staffReservations">
+      Cargando reservaciones...
+    </div>
+  </div>
+
+</section>
   </div>
 </section>
 
@@ -518,10 +547,153 @@ body::before {
     SUPABASE_KEY
   );
 
+async function staffLogin(event) {
+  event.preventDefault();
+
+  const email = document.getElementById("staffEmail").value.trim();
+  const password = document.getElementById("staffPassword").value;
+  const message = document.getElementById("staffLoginMessage");
+
+  message.textContent = "Verificando acceso...";
+
+  const { data, error } = await db.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
+
+  if (error) {
+    message.textContent = "Correo o contraseña incorrectos.";
+    return;
+  }
+
+  const { data: isAdmin, error: adminError } =
+    await db.rpc("is_staff_admin");
+
+  if (adminError || !isAdmin) {
+    await db.auth.signOut();
+    message.textContent = "No tienes autorización de STAFF.";
+    return;
+  }
+
+  document.getElementById("staffLoginForm").classList.add("hidden");
+  document.getElementById("staffDashboardSection").classList.remove("hidden");
+
+  message.textContent = "";
+
+  await loadStaffReservations();
+}
+
+
+document.getElementById("staffLoginForm").addEventListener("submit", staffLogin);
+
+async function loadStaffReservations() {
+  const container = document.getElementById("staffReservations");
+
+  container.textContent = "Cargando reservaciones...";
+
+  const { data, error } = await db
+    .from("reservations")
+    .select("id, full_name, school, email, payment_status, reserved_at")
+    .order("reserved_at", { ascending: false });
+
+  if (error) {
+    container.textContent = "Error al cargar las reservaciones: " + error.message;
+    return;
+  }
+
+  container.innerHTML = "";
+
+  if (!data || data.length === 0) {
+    container.textContent = "Todavía no hay reservaciones registradas.";
+    return;
+  }
+
+  data.forEach(reservation => {
+    const card = document.createElement("div");
+    card.className = "panel";
+
+    const name = document.createElement("h3");
+    name.textContent = reservation.full_name;
+
+    const school = document.createElement("p");
+    school.textContent = "Institución: " + reservation.school;
+
+    const email = document.createElement("p");
+    email.textContent = "Correo: " + reservation.email;
+
+    const payment = document.createElement("p");
+    payment.textContent = "Estado de pago: " + reservation.payment_status;
+
+    const select = document.createElement("select");
+
+select.innerHTML = `
+  <option value="pending">Pendiente</option>
+  <option value="approved">Aprobado</option>
+  <option value="denied">Rechazado</option>
+`;
+
+select.value = reservation.payment_status || "pending";
+
+const saveButton = document.createElement("button");
+saveButton.textContent = "GUARDAR ESTADO";
+
+saveButton.addEventListener("click", async () => {
+  await updatePaymentStatus(reservation.id, select.value);
+});
+
+card.append(name, school, email, payment, select, saveButton);
+container.appendChild(card);
+  });
+}
+
+
+// AQUÍ COMIENZA LA NUEVA FUNCIÓN
+
+async function updatePaymentStatus(reservationId, newStatus) {
+  const allowedStatuses = ["approved", "pending", "denied"];
+
+  if (!allowedStatuses.includes(newStatus)) {
+    alert("Estado de pago no válido.");
+    return;
+  }
+
+  const { error } = await db
+    .from("reservations")
+    .update({ payment_status: newStatus })
+    .eq("id", reservationId);
+
+  if (error) {
+    console.error("Error al actualizar:", error);
+    alert("No se pudo actualizar: " + error.message);
+    return;
+  }
+
+  alert("Estado de pago actualizado correctamente.");
+  await loadStaffReservations();
+}
+
+
+async function staffLogout() {
+  const { error } = await db.auth.signOut();
+
+  if (error) {
+    alert("No se pudo cerrar la sesión.");
+    return;
+  }
+
+  document.getElementById("staffDashboardSection").classList.add("hidden");
+  document.getElementById("staffLoginForm").classList.remove("hidden");
+
+  document.getElementById("staffLoginForm").reset();
+
+  showOnly("staffSection");
+}
+
   let selectedCommittee = null;
   let selectedCountry = null;
 
-  function showOnly(sectionId) {
+  
+function showOnly(sectionId) {
   const sectionIds = [
     "homeSection",
     "posturesSection",
@@ -530,6 +702,7 @@ body::before {
     "committeesInfoSection",
     "participantSection",
     "staffSection",
+    "staffDashboardSection",
     "committeeSection",
     "countrySection",
     "formSection",
@@ -558,6 +731,7 @@ body::before {
     behavior: "smooth"
   });
 }
+
 
 async function loadCommittees() {
   const container = document.getElementById("committees");
