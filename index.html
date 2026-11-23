@@ -834,6 +834,36 @@ async function loadCommittees() {
     }
   }
 
+
+// ACTUALIZACIÓN AUTOMÁTICA DE PAÍSES
+let countryRealtimeChannel = null;
+
+function startCountryRealtime() {
+  if (countryRealtimeChannel) return;
+
+  countryRealtimeChannel = db
+    .channel("encimun-country-updates")
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "country_reservation_events"
+      },
+      async (payload) => {
+        if (selectedCommittee) {
+          console.log("Nueva reservación detectada:", payload.new.country_id);
+          await loadCountries();
+        }
+      }
+    )
+    .subscribe((status) => {
+      console.log("Estado de actualización en vivo:", status);
+    });
+}
+
+window.startCountryRealtime = startCountryRealtime;
+
   function selectCountry(country) {
     selectedCountry = country;
 
@@ -952,6 +982,7 @@ if (savedConfirmation) {
 
   showOnly("successSection");
 } else {
+  startCountryRealtime();
   loadCommittees();
 }
 </script>
