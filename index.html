@@ -80,16 +80,18 @@
     .hero::after {
   content: "";
   position: absolute;
-  right: -150px;
-  top: -130px;
-  width: 580px;
-  height: 580px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
   background-image: url("logo-encimun.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
-  opacity: 0.055;
+  background-size: 85% auto;
+
+  opacity: 0.045;
   pointer-events: none;
+  z-index: 0;
 }
     .eyebrow { color: #d7bd88; font-size: 11px; font-weight: bold; letter-spacing: 2px; }
     .hero h2 {
@@ -257,7 +259,214 @@ body::before {
   margin: 0;
 }
 
-  </style>
+
+/* CONTADOR ENCIMUN */
+.countdown-block {
+  margin: 38px auto 48px;
+  padding: 30px 24px;
+  max-width: 850px;
+  text-align: center;
+  background: #1B2A38;
+  border: 1px solid rgba(178, 147, 91, 0.45);
+  border-radius: 5px;
+}
+
+.countdown-label {
+  color: #B2935B;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 28px;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 38px;
+  flex-wrap: wrap;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 90px;
+}
+
+.countdown-unit span {
+  color: #F3F0E8;
+  font-size: clamp(34px, 5vw, 54px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.countdown-unit small {
+  color: #B2935B;
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-top: 10px;
+}
+
+.countdown-details {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(178, 147, 91, 0.3);
+  color: #D8D4CB;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+}
+
+/* MENSAJE DE SECRETARÍA GENERAL */
+.welcome-message {
+  margin-top: 35px;
+}
+
+.welcome-message h3 {
+  color: #B2935B;
+  font-size: 13px;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+#homeSection > h2 {
+  text-align: center;
+}
+
+.countdown-label {
+  text-align: center;
+  width: 100%;
+}
+
+  .secretariat-block {
+  max-width: 850px;
+  margin: 25px auto 40px;
+  padding: 35px 40px;
+  background: #1B2A38;
+  border: 1px solid rgba(178, 147, 91, 0.35);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.secretariat-block .welcome-message {
+  margin-top: 0;
+  text-align: center;
+}
+
+#homeSection .secretariat-block .welcome-message p {
+  text-align: center !important;
+  max-width: 790px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  line-height: 1.8;
+}
+
+.secretariat-block .welcome-message {
+  margin-top: 0;
+}
+  
+.countdown-block {
+  margin-bottom: 0;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+}
+
+.secretariat-block {
+  margin-top: 0;
+  border-top: 1px solid #B2935B;
+  border-radius: 0 0 5px 5px;
+}
+
+/* FORZAR CENTRADO DEL MENSAJE */
+.secretariat-block,
+.secretariat-block .welcome-message,
+.secretariat-block .welcome-message p,
+.secretariat-block .signature,
+.secretariat-block .signature-closing,
+.secretariat-block .signature h3,
+.secretariat-block .signature-footer {
+  text-align: center !important;
+}
+
+.secretariat-block .welcome-message p {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 700px;
+}
+
+.secretariat-block .signature-line {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* CENTRADO DE ENCABEZADOS */
+.hero h2 {
+  text-align: center;
+  max-width: none;
+}
+
+.hero .countdown-label {
+  text-align: center;
+  max-width: none;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* CENTRADO DEL MENSAJE */
+.secretariat-block {
+  text-align: center;
+}
+
+.secretariat-block .welcome-message {
+  max-width: none;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.secretariat-block .welcome-message p {
+  max-width: 790px;
+  margin: 0 auto 20px;
+  text-align: center;
+}
+
+.secretariat-block .signature {
+  margin: 35px auto 0;
+  text-align: center;
+}
+
+.secretariat-block .signature-line {
+  margin: 0 auto 18px;
+}
+
+ .election-test-block {
+  background: #1B2A38;
+  border: 1px solid rgba(178, 147, 91, 0.45);
+  border-radius: 5px;
+  padding: 30px;
+  margin: 30px 0;
+  text-align: center;
+}
+
+.election-test-block h3 {
+  color: #B2935B;
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.election-test-block p {
+  color: #D6DEEA;
+  margin-bottom: 22px;
+}
+ 
+ </style>
 </head>
 
 
@@ -295,7 +504,41 @@ body::before {
 
   <h2>El diálogo construye el futuro.</h2>
 
+  
+<div class="countdown-block">
+  <p class="countdown-label">EL ENCUENTRO COMIENZA EN</p>
+
+  <div id="encimunCountdown" class="countdown">
+    <div class="countdown-unit">
+      <span id="days">000</span>
+      <small>DÍAS</small>
+    </div>
+    <div class="countdown-unit">
+      <span id="hours">00</span>
+      <small>HORAS</small>
+    </div>
+    <div class="countdown-unit">
+      <span id="minutes">00</span>
+      <small>MINUTOS</small>
+    </div>
+    <div class="countdown-unit">
+      <span id="seconds">00</span>
+      <small>SEGUNDOS</small>
+    </div>
+  </div>
+
+  <div class="countdown-details">
+    <span>27 DE MAYO DE 2027</span>
+    <span>COLEGIO ENCINO</span>
+    <span>5:00 P. M.</span>
+  </div>
+</div>
+
+<div class="secretariat-block">
+
   <div class="welcome-message">
+    <h3>MENSAJE DE SECRETARÍA GENERAL</h3>
+
     <p>
       Es un honor darles la bienvenida a ENCIMUN. Este encuentro representa
       una oportunidad para trascender el ámbito académico, conocer distintas
@@ -324,18 +567,19 @@ body::before {
     </p>
   </div>
 
-  <div class="signature">
-    <div class="signature-line"></div>
-    <p class="signature-closing">Con nuestros mejores deseos,</p>
-    <h3>SECRETARÍA GENERAL</h3>
-    <p class="signature-footer">ENCIMUN · COLEGIO ENCINO</p>
-  </div>
+<div class="signature">
+  <div class="signature-line"></div>
+  <p class="signature-closing">Con nuestros mejores deseos,</p>
+  <h3>SECRETARÍA GENERAL</h3>
+  <p class="signature-footer">ENCIMUN · COLEGIO ENCINO</p>
+</div>
 
-  <button class="primary" onclick="window.location.href='seleccion.html'">
-    EXPLORAR COMITÉS
-  </button>
-   </div>
- </section>
+</div>
+
+</div>
+</section>
+
+  
 
   <section id="posturesSection" class="panel hidden">
     <button class="secondary" onclick="showOnly('homeSection')">← Volver al inicio</button>
@@ -344,12 +588,39 @@ body::before {
     <p>Los documentos estarán disponibles cuando sean publicados por la organización.</p>
   </section>
 
-  <section id="accountSection" class="panel hidden">
-    <button class="secondary" onclick="showOnly('homeSection')">← Volver al inicio</button>
-    <h2 class="section-heading">Crear cuenta</h2>
-    <p class="intro">El registro individual de delegados se habilitará en esta sección.</p>
-    <p>La creación de cuentas y la inscripción todavía están en etapa de implementación.</p>
-  </section>
+  
+<section id="accountSection" class="panel hidden">
+  <button class="secondary" onclick="showOnly('homeSection')">← Volver al inicio</button>
+
+  <h2 class="section-heading">Crear cuenta</h2>
+  <p class="intro">Registra tus datos para participar en ENCIMUN.</p>
+
+  <div class="panel">
+    <form id="participantRegisterForm">
+      <label for="registerName">Nombre completo</label>
+      <input id="registerName" type="text" required placeholder="Nombre y apellidos">
+
+      <label for="registerSchool">Institución educativa</label>
+      <input id="registerSchool" type="text" required placeholder="Nombre de tu escuela">
+
+      <label for="registerEmail">Correo electrónico</label>
+      <input id="registerEmail" type="email" required placeholder="Tu correo electrónico">
+
+      <label for="registerPassword">Contraseña</label>
+      <input id="registerPassword" type="password" minlength="6" required placeholder="Mínimo 6 caracteres">
+
+      <label for="registerPasswordConfirm">Confirmar contraseña</label>
+      <input id="registerPasswordConfirm" type="password" minlength="6" required placeholder="Repite tu contraseña">
+
+      <label for="registerProof">Comprobante de pago</label>
+      <input id="registerProof" type="file" accept=".jpg,.jpeg,.png,.webp,.pdf" required>
+
+      <button type="submit">CREAR CUENTA</button>
+      <p id="participantRegisterMessage"></p>
+    </form>
+  </div>
+</section>
+
 <section id="documentsSection" class="panel hidden">
 
   <button class="secondary" onclick="showOnly('homeSection')">
@@ -409,7 +680,7 @@ body::before {
   </div>
 </section>
 
-  <section id="participantSection" class="panel hidden">
+ <section id="participantSection"  class="panel hidden">
   <button class="secondary" onclick="showOnly('homeSection')">← Volver al inicio</button>
 
   <h2 class="section-heading">Acceso de participantes</h2>
@@ -441,10 +712,38 @@ body::before {
       <p id="participantLoginMessage"></p>
     </form>
   </div>
+
+  <div id="participantDashboard" class="panel hidden">
+    <h2>Mi cuenta ENCIMUN</h2>
+    <p id="participantAccountMessage"></p>
+
+    <div id="participantProofSection">
+      <h3>Comprobante de pago</h3>
+      <p>Si todavía no has enviado tu comprobante, puedes subirlo aquí.</p>
+
+      <form id="participantProofForm">
+        <label for="participantProofFile">Seleccionar comprobante</label>
+        <input
+          id="participantProofFile"
+          type="file"
+          accept=".jpg,.jpeg,.png,.webp,.pdf"
+        >
+        <button type="submit">SUBIR COMPROBANTE</button>
+        <p id="participantProofMessage"></p>
+      </form>
+    </div>
+
+    <button class="secondary" onclick="participantLogout()">CERRAR SESIÓN</button>
+  </div>
+
 </section>
 
-  <section id="staffSection" class="panel hidden">
-  <button class="secondary" onclick="showOnly('homeSection')">Volver al inicio</button>
+  
+<section id="staffSection" class="panel hidden">
+
+  <button class="secondary" onclick="showOnly('homeSection')">
+    Volver al inicio
+  </button>
 
   <h2 class="section-heading">Acceso de STAFF</h2>
 
@@ -453,6 +752,7 @@ body::before {
   </p>
 
   <div class="panel">
+
     <form id="staffLoginForm">
       <label for="staffEmail">Correo electrónico</label>
       <input
@@ -471,14 +771,14 @@ body::before {
       >
 
       <button type="submit">INICIAR SESIÓN</button>
-
       <p id="staffLoginMessage"></p>
     </form>
-    
 
-  
+  </div>
+
   <!-- PANEL PRIVADO -->
   <div id="staffDashboardSection" class="hidden">
+
     <h2>Bienvenido, Secretario.</h2>
     <p>Panel de administración ENCIMUN</p>
 
@@ -486,15 +786,27 @@ body::before {
       CERRAR SESIÓN
     </button>
 
-    <h3>Reservaciones registradas</h3>
-    <div id="staffReservations">
-      Cargando reservaciones...
+    <div class="election-test-block">
+      <h3>PRUEBA DE ELECCIÓN</h3>
+      <p>
+        Acceso al sistema de selección de comités y delegaciones.
+      </p>
+
+      <button class="primary" onclick="window.location.href='seleccion.html'">
+        EXPLORAR COMITÉS
+      </button>
     </div>
+
+<h3>Registros de participantes</h3>
+<p>Revisa los datos y comprobantes de quienes solicitaron una cuenta.</p>
+<div id="staffParticipants">
+  Cargando participantes...
+</div>
+
   </div>
 
 </section>
-  </div>
-</section>
+
 
   <section id="committeeSection" class="panel hidden">
     <button class="secondary" onclick="showOnly('homeSection')">← Volver al inicio</button>
@@ -547,6 +859,228 @@ body::before {
     SUPABASE_KEY
   );
 
+
+document.getElementById("participantRegisterForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const message = document.getElementById("participantRegisterMessage");
+  const fullName = document.getElementById("registerName").value.trim();
+  const school = document.getElementById("registerSchool").value.trim();
+  const email = document.getElementById("registerEmail").value.trim();
+  const password = document.getElementById("registerPassword").value;
+  const confirmPassword = document.getElementById("registerPasswordConfirm").value;
+  const file = document.getElementById("registerProof").files[0];
+
+  if (password !== confirmPassword) {
+    message.textContent = "Las contraseñas no coinciden.";
+    return;
+  }
+
+  if (!file) {
+    message.textContent = "Selecciona tu comprobante de pago.";
+    return;
+  }
+
+  const allowedTypes = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+
+  if (!allowedTypes.includes(file.type)) {
+    message.textContent = "El comprobante debe ser JPG, PNG, WEBP o PDF.";
+    return;
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    message.textContent = "El archivo no puede superar los 5 MB.";
+    return;
+  }
+
+  message.textContent = "Creando cuenta...";
+
+  const { data, error } = await db.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        full_name: fullName,
+        school: school
+      }
+    }
+  });
+
+  if (error) {
+    message.textContent = "No se pudo crear la cuenta: " + error.message;
+    return;
+  }
+
+  if (!data.user) {
+    message.textContent = "No se pudo crear la cuenta. Inténtalo nuevamente.";
+    return;
+  }
+
+  if (!data.session) {
+    message.textContent =
+      "Cuenta creada. Revisa tu correo para confirmar tu dirección. Después podrás iniciar sesión y subir tu comprobante.";
+    return;
+  }
+
+  message.textContent = "Cuenta creada. Subiendo comprobante...";
+
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const proofPath = `${data.user.id}/${Date.now()}_${safeName}`;
+
+  const { error: uploadError } = await db.storage
+    .from("participant-proofs")
+    .upload(proofPath, file, { upsert: false });
+
+  if (uploadError) {
+    message.textContent =
+      "Tu cuenta se creó, pero no se pudo subir el comprobante: " + uploadError.message;
+    return;
+  }
+
+  const { error: pathError } = await db.rpc("set_own_proof_path", {
+    p_path: proofPath
+  });
+
+  if (pathError) {
+    message.textContent =
+      "El comprobante se subió, pero no se pudo registrar: " + pathError.message;
+    return;
+  }
+
+  message.textContent =
+    "¡Registro completado! Tu cuenta está pendiente de revisión por STAFF.";
+  document.getElementById("participantRegisterForm").reset();
+});
+
+
+// INICIO DE SESIÓN DE PARTICIPANTES
+document.getElementById("participantLoginForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const message = document.getElementById("participantLoginMessage");
+  const email = document.getElementById("participantEmail").value.trim();
+  const password = document.getElementById("participantPassword").value;
+
+  message.textContent = "Verificando acceso...";
+
+  const { data, error } = await db.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    message.textContent = "Correo o contraseña incorrectos, o correo pendiente de confirmación.";
+    return;
+  }
+
+  const { data: profile, error: profileError } = await db
+    .from("participant_profiles")
+    .select("full_name, school, account_status, payment_status, proof_path")
+    .eq("id", data.user.id)
+    .single();
+
+  if (profileError || !profile) {
+    message.textContent = "No se encontró tu perfil. Contacta a Secretaría.";
+    await db.auth.signOut();
+    return;
+  }
+
+  document.getElementById("participantLoginForm").classList.add("hidden");
+  document.getElementById("participantDashboard").classList.remove("hidden");
+
+  const accountMessage = document.getElementById("participantAccountMessage");
+  const proofSection = document.getElementById("participantProofSection");
+
+  if (profile.account_status === "pending") {
+    accountMessage.textContent =
+      "Tu registro está pendiente de autorización por parte de STAFF. Por favor, espera la revisión de Secretaría.";
+  } else if (profile.account_status === "rejected") {
+    accountMessage.textContent =
+      "Tu registro no fue aprobado. Contacta a Secretaría para recibir información.";
+ } else if (profile.account_status === "approved") {
+  accountMessage.textContent =
+    "Tu cuenta está aprobada. ¡Bienvenido a ENCIMUN! Aún no es momento de escoger tu comité y delegación. La fecha de apertura de selección será anunciada próximamente por Secretaría General.";
+}
+
+  if (profile.proof_path) {
+    proofSection.classList.add("hidden");
+  } else {
+    proofSection.classList.remove("hidden");
+  }
+
+  message.textContent = "";
+});
+
+// SUBIR COMPROBANTE DESPUÉS DE INICIAR SESIÓN
+document.getElementById("participantProofForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const message = document.getElementById("participantProofMessage");
+  const file = document.getElementById("participantProofFile").files[0];
+
+  if (!file) {
+    message.textContent = "Selecciona un comprobante.";
+    return;
+  }
+
+  const allowedTypes = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+
+  if (!allowedTypes.includes(file.type) || file.size > 5 * 1024 * 1024) {
+    message.textContent = "Archivo no válido. Usa JPG, PNG, WEBP o PDF de máximo 5 MB.";
+    return;
+  }
+
+  const { data: userData, error: userError } = await db.auth.getUser();
+
+  if (userError || !userData.user) {
+    message.textContent = "Tu sesión expiró. Inicia sesión nuevamente.";
+    return;
+  }
+
+  message.textContent = "Subiendo comprobante...";
+
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const proofPath = `${userData.user.id}/${Date.now()}_${safeName}`;
+
+  const { error: uploadError } = await db.storage
+    .from("participant-proofs")
+    .upload(proofPath, file);
+
+  if (uploadError) {
+    message.textContent = "No se pudo subir el archivo: " + uploadError.message;
+    return;
+  }
+
+  const { error: pathError } = await db.rpc("set_own_proof_path", {
+    p_path: proofPath
+  });
+
+  if (pathError) {
+    message.textContent = "No se pudo registrar el comprobante: " + pathError.message;
+    return;
+  }
+
+  message.textContent = "Comprobante enviado correctamente. Está pendiente de revisión.";
+  document.getElementById("participantProofSection").classList.add("hidden");
+});
+
+// CERRAR SESIÓN DE PARTICIPANTES
+async function participantLogout() {
+  const { error } = await db.auth.signOut();
+
+  if (error) {
+    alert("No se pudo cerrar la sesión.");
+    return;
+  }
+
+  document.getElementById("participantDashboard").classList.add("hidden");
+  document.getElementById("participantLoginForm").classList.remove("hidden");
+  document.getElementById("participantLoginForm").reset();
+  document.getElementById("participantProofForm").reset();
+
+  showOnly("participantSection");
+}
+
 async function staffLogin(event) {
   event.preventDefault();
 
@@ -580,7 +1114,7 @@ async function staffLogin(event) {
 
   message.textContent = "";
 
-  await loadStaffReservations();
+  await loadStaffParticipants();
 }
 
 
@@ -644,6 +1178,122 @@ saveButton.addEventListener("click", async () => {
 card.append(name, school, email, payment, select, saveButton);
 container.appendChild(card);
   });
+}
+
+
+// CARGAR REGISTROS DE PARTICIPANTES
+async function loadStaffParticipants() {
+  const container = document.getElementById("staffParticipants");
+  container.textContent = "Cargando participantes...";
+
+  const { data, error } = await db
+    .from("participant_profiles")
+    .select("id, full_name, school, email, proof_path, account_status, payment_status, created_at")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    container.textContent = "Error al cargar participantes: " + error.message;
+    return;
+  }
+
+  container.innerHTML = "";
+
+  if (!data || data.length === 0) {
+    container.textContent = "Todavía no hay participantes registrados.";
+    return;
+  }
+
+  for (const participant of data) {
+    const card = document.createElement("div");
+    card.className = "panel";
+
+    const name = document.createElement("h3");
+    name.textContent = participant.full_name;
+
+    const school = document.createElement("p");
+    school.textContent = "Institución: " + participant.school;
+
+    const email = document.createElement("p");
+    email.textContent = "Correo: " + participant.email;
+
+    const account = document.createElement("p");
+    account.textContent = "Estado de cuenta: " + participant.account_status;
+
+    const payment = document.createElement("p");
+    payment.textContent = "Estado de pago: " + participant.payment_status;
+
+    card.append(name, school, email, account, payment);
+
+    if (participant.proof_path) {
+      const proofButton = document.createElement("button");
+      proofButton.textContent = "VER COMPROBANTE";
+
+      proofButton.addEventListener("click", async () => {
+        const { data: fileData, error: fileError } = await db.storage
+          .from("participant-proofs")
+          .createSignedUrl(participant.proof_path, 300);
+
+        if (fileError) {
+          alert("No se pudo abrir el comprobante: " + fileError.message);
+          return;
+        }
+
+        window.open(fileData.signedUrl, "_blank", "noopener");
+      });
+
+      card.appendChild(proofButton);
+    } else {
+      const missing = document.createElement("p");
+      missing.textContent = "Todavía no ha enviado comprobante.";
+      card.appendChild(missing);
+    }
+
+    const accountSelect = document.createElement("select");
+    accountSelect.innerHTML = `
+      <option value="pending">Cuenta pendiente</option>
+      <option value="approved">Aprobar cuenta</option>
+      <option value="rejected">Rechazar cuenta</option>
+    `;
+    accountSelect.value = participant.account_status;
+
+    const paymentSelect = document.createElement("select");
+    paymentSelect.innerHTML = `
+      <option value="pending">Pago pendiente</option>
+      <option value="approved">Pago aprobado</option>
+      <option value="rejected">Pago rechazado</option>
+    `;
+    paymentSelect.value = participant.payment_status;
+
+    const saveButton = document.createElement("button");
+    saveButton.textContent = "GUARDAR CAMBIOS";
+
+    saveButton.addEventListener("click", async () => {
+      const { error: updateError } = await db
+        .from("participant_profiles")
+        .update({
+          account_status: accountSelect.value,
+          payment_status: paymentSelect.value
+        })
+        .eq("id", participant.id);
+
+      if (updateError) {
+        alert("No se pudieron guardar los cambios: " + updateError.message);
+        return;
+      }
+
+      alert("Registro actualizado correctamente.");
+      await loadStaffParticipants();
+    });
+
+    card.append(
+      document.createElement("hr"),
+      accountSelect,
+      paymentSelect,
+      saveButton
+    );
+
+    container.appendChild(card);
+  }
 }
 
 
@@ -986,6 +1636,29 @@ if (savedConfirmation) {
   loadCommittees();
 }
 </script>
+
+<script>
+  function updateEncimunCountdown() {
+    const eventDate = new Date("2027-05-27T17:00:00-06:00");
+    const now = new Date();
+    const difference = eventDate - now;
+
+    const days = Math.max(0, Math.floor(difference / 86400000));
+    const hours = Math.max(0, Math.floor((difference % 86400000) / 3600000));
+    const minutes = Math.max(0, Math.floor((difference % 3600000) / 60000));
+    const seconds = Math.max(0, Math.floor((difference % 60000) / 1000));
+
+    document.getElementById("days").textContent = String(days).padStart(3, "0");
+    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+  }
+
+  updateEncimunCountdown();
+  setInterval(updateEncimunCountdown, 1000);
+</script>
+</body>
+
 
 </body>
 </html>
